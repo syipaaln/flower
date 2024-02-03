@@ -1,0 +1,41 @@
+@extends('template')
+
+@section('content')
+    <div class="row mt-5 mb-5">
+        <div class="col-lg-12 margin-tb">
+            <div class="float-left">
+                <h2>Show Komentar Foto</h2>
+            </div>
+            <div class="float-right">
+                <a class="btn btn-secondary" href="{{ route('komentarfoto.index') }}"> Back</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Foto ID:</strong>
+                {{ $komentarfoto->FotoID }}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>User:</strong>
+                {{ $komentarfoto->UserID }}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Isi Komentar:</strong>
+                {{ $komentarfoto->IsiKomentar }}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>TanggalKomentar:</strong>
+                {{ $komentarfoto->TanggalKomentar }}
+            </div>
+        </div>
+    </div>
+@endsection
