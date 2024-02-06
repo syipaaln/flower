@@ -40,7 +40,7 @@ class FotoController extends Controller
         ]);
         Foto::create($request->all());
 
-        return redirect()->route('foto.index')->with('succes','Data Berhasil di Input');
+        return redirect()->route('foto.index')->with('success','Data Berhasil di Input');
     }
 
     /**
@@ -74,7 +74,7 @@ class FotoController extends Controller
         ]);
         $foto->update($request->all());
 
-        return redirect()->route('foto.index')->with('succes','Data Berhasil di Update');
+        return redirect()->route('foto.index')->with('success','Data Berhasil di Update');
     }
 
     /**
@@ -84,6 +84,6 @@ class FotoController extends Controller
     {
         $foto->delete();
 
-        return redirect()->route('foto.index')->with('succes','Data Berhasil di Hapus');
+        return redirect()->route('foto.index')->with('success','Data Berhasil di Hapus');
     }
 }

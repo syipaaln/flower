@@ -1,10 +1,38 @@
 @extends('template')
 
 @section('content')
+    <!-- <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+        <a class="dropdown-item" href="{{ route('logout') }}"
+            onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">
+            {{ __('Logout') }}
+        </a>
+
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+            @csrf
+        </form>
+    </div> -->
     <div class="row mt-5 mb-5">
         <div class="col-lg-12 margin-tb">
+            @if ($message = Session::get('success'))
+            <div class="alert alert-success">
+                <p>{{ $message }}</p>
+            </div>
+            @endif
             <div class="float-left">
                 <h2>Data Foto</h2>
+            </div>
+            <div class="float-right">
+                <a class="btn btn-warning" href="{{ route('logout') }}"
+                    onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();">
+                        Logout
+                </a>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
+                <!-- <a class="btn btn-success" href="{{ route('logout') }}"> Logout</a> -->
             </div>
             <div class="float-right">
                 <a class="btn btn-success" href="{{ route('foto.create') }}"> Input Foto</a>
@@ -12,22 +40,16 @@
         </div>
     </div>
 
-    @if ($message = Session::get('succes'))
-    <div class="alert alert-success">
-        <p>{{ $message }}</p>
-    </div>
-    @endif
-
     <table class="table table-bordered">
         <tr>
             <th width="20px" class="text-center">No</th>
-            <th width="280px"class="text-center">Judul Foto</th>
+            <th width="100px"class="text-center">Judul Foto</th>
             <th width="280px"class="text-center">Deskripsi Foto</th>
             <th width="280px"class="text-center">Tanggal Unggah</th>
             <th width="200px"class="text-center">Lokasi File</th>
             <th width="100px"class="text-center">Album</th>
             <th width="100px"class="text-center">User</th>
-            <th width="280px"class="text-center">Action</th>
+            <th width="310px"class="text-center">Action</th>
         </tr>
         @foreach ($foto as $foto)
         <tr>

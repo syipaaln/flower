@@ -38,7 +38,7 @@ class AlbumController extends Controller
         ]);
         Album::create($request->all());
 
-        return redirect()->route('album.index')->with('succes','Data Berhasil di Input');
+        return redirect()->route('album.index')->with('success','Data Berhasil di Input');
     }
 
     /**
@@ -70,7 +70,7 @@ class AlbumController extends Controller
         ]);
 
         $album->update($request->all());
-        return redirect()->route('album.index')->with('succes','Data Berhasil di Update');
+        return redirect()->route('album.index')->with('success','Data Berhasil di Update');
     }
 
     /**
@@ -80,6 +80,6 @@ class AlbumController extends Controller
     {
         $album->delete();
 
-        return redirect()->route('album.index')->with('succes','Data Berhasil di Hapus');
+        return redirect()->route('album.index')->with('success','Data Berhasil di Hapus');
     }
 }
