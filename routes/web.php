@@ -5,6 +5,7 @@ use App\http\Controllers\AlbumController;
 use App\http\Controllers\FotoController;
 use App\http\Controllers\KomentarFotoController;
 use App\http\Controllers\LikeFotoController;
+use App\http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,3 +30,4 @@ Route::resource('album', AlbumController::class);
 Route::resource('foto', FotoController::class);
 Route::resource('komentarfoto', KomentarFotoController::class);
 Route::resource('likefoto', LikeFotoController::class);
+Route::resource('user', UserController::class);
