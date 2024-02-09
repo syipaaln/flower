@@ -23,11 +23,20 @@
         </div>
     @endif
 
-    <form action="{{ route('foto.update',$foto->FotoID) }}" method="POST">
+    <form action="{{ route('foto.update',$foto->FotoID) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
         <div class="row">
+            <div class="mb-3">
+                <label class="form-label">Picture</label><br>
+                @if ($foto->picture)
+                    <img src="{{ asset('storage/' . $foto->picture) }}" class="img-thumbnail" style="width: 20%" alt="">
+                @else
+                    <Span>No Picture</Span>
+                @endif
+                <input type="file" class="form-control" name="picture" value="" accept="image/*">
+            </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Judul foto:</strong>
@@ -37,7 +46,7 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Deskripsi Foto:</strong>
-                    <textarea class="form-control" style="height:150px" name="DeskripsiFoto" placeholder="Content" value="{{ $foto->DeskripsiFoto }}"></textarea>
+                    <textarea class="form-control" style="height:150px" name="DeskripsiFoto" placeholder="Deskripsi Foto">{{ $foto->DeskripsiFoto }}</textarea>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">

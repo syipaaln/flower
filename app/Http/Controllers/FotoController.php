@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Foto;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class FotoController extends Controller
 {
@@ -31,6 +31,7 @@ class FotoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'picture' => ['mimes:jpg,png,jpeg', 'image', 'max:2048'],
             'JudulFoto' => 'required',
             'DeskripsiFoto' => 'required',
             'TanggalUnggah' => 'required',
@@ -38,9 +39,51 @@ class FotoController extends Controller
             'AlbumID' => 'required',
             'UserID' => 'required',
         ]);
-        Foto::create($request->all());
+        // Foto::create($request->all());
 
-        return redirect()->route('foto.index')->with('success','Data Berhasil di Input');
+        // return redirect()->route('foto.index')->with('success','Data Berhasil di Input');
+
+        $params = $request->all();
+
+        if ($request->hasFile('picture')) {
+            $path = $request->file('picture')->store('uploads');
+            $params['picture'] = $path;
+        }
+
+        $foto = Foto::create($params);
+
+        if ($foto) {
+            // $foto->categories()->sync($params['category_ids']);
+
+            return redirect(route('foto.index'))->with('success','Added!');
+        }
+
+        return redirect(route('foto.index'))->with('error','Gagal!');
+
+        // $id = $request->get('id');
+        // if($id){
+        //     $foto = Foto::find($id);
+        // } else {
+        //     $foto = new Foto;
+        // }
+        // if($request->hasFile('picture')){
+        //     $picture = $request->file('picture');
+        //     $request->validate([
+        //         'picture' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        //     ]);
+        //     $imageName = time() . '.' . $picture->getClientOriginalExtension();
+        //     $destinationPath = 'image/';
+        //     $picture->move($destinationPath, $imageName);
+        //     $foto->picture = $imageName;
+        // }
+        // $foto->JudulFoto = $request->JudulFoto;
+        // $foto->DeskripsiFoto = $request->DeskripsiFoto;
+        // $foto->TanggalUnggah = $request->TanggalUnggah;
+        // $foto->LokasiFile = $request->LokasiFile;
+        // $foto->AlbumID = $request->AlbumID;
+        // $foto->UserID = $request->UserID;
+        // $foto->save();
+        // return redirect()->route('foto.index')->with('success', 'Data Berhasil di Input');
     }
 
     /**
@@ -71,10 +114,59 @@ class FotoController extends Controller
             'LokasiFile' => 'required',
             'AlbumID' => 'required',
             'UserID' => 'required',
+            'picture' => ['mimes:jpg,png,jpeg', 'image', 'max:2048']
         ]);
-        $foto->update($request->all());
 
-        return redirect()->route('foto.index')->with('success','Data Berhasil di Update');
+        $params = $request->all();
+
+        if ($request->hasFile('picture')) {
+            $path = $request->file('picture')->store('uploads');
+            $params['picture'] = $path;
+            
+            if ($foto->picture) {
+                Storage::delete($foto->picture);
+            }
+        }
+
+        if ($foto->update($params)) {
+            // $product->categories()->sync($params['category_ids']);
+
+            return redirect(route('foto.index'))->with('success','Updated!');
+        }
+
+        // $foto->update($request->all());
+        // Mengupdate data menu tanpa memperbarui foto jika tidak diupload
+        // $foto->update([
+        //     'JudulFoto' => $request->JudulFoto,
+        //     'DeskripsiFoto' => $request->DeskripsiFoto,
+        //     'TanggalUnggah' => $request->TanggalUnggah,
+        //     'LokasiFile' => $request->LokasiFile,
+        //     'AlbumID' => $request->AlbumID,
+        //     'UserID' => $request->UserID,
+        // ]);
+
+        // // Cek apakah ada file foto yang diupload
+        // if ($request->hasFile('picture')) {
+        //     $picture = $request->file('picture');
+
+        //     // Validasi foto baru
+        //     $request->validate([
+        //         'picture' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        //     ]);
+
+        //     // Hapus foto lama (jika ada)
+        //     if ($foto->picture) {
+        //         unlink(public_path('image/' . $foto->picture));
+        //     }
+
+        //     // Simpan foto baru
+        //     $imageName = time() . '.' . $picture->getClientOriginalExtension();
+        //     $destinationPath = 'image/';
+        //     $picture->move($destinationPath, $imageName);
+        //     $foto->update(['picture' => $imageName]);
+        // }
+
+        // return redirect()->route('foto.index')->with('success','Data Berhasil di Update');
     }
 
     /**
@@ -82,8 +174,21 @@ class FotoController extends Controller
      */
     public function destroy(Foto $foto)
     {
-        $foto->delete();
+        // $foto->delete();
 
-        return redirect()->route('foto.index')->with('success','Data Berhasil di Hapus');
+        // return redirect()->route('foto.index')->with('success','Data Berhasil di Hapus');
+
+        // $product = Product::findOrFail($id);
+        // $product->categories()->detach();
+
+        if ($foto->picture) {
+            Storage::delete($foto->picture);
+        }
+
+        if ($foto->delete()) {
+            return redirect(route('foto.index'))->with('success','Deleted!');
+        }
+
+        return redirect(route('foto.index'))->with('error','Sorry, unable to delete this!');
     }
 }

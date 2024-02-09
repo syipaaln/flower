@@ -15,6 +15,15 @@
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
+                @if ($foto->picture)
+                    <img src="{{ asset('storage/' . $foto->picture) }}" class="img-thumbnail" alt="">
+                @else
+                    <Span>No Picture</Span>
+                @endif
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
                 <strong>Judul Foto:</strong>
                 {{ $foto->JudulFoto }}
             </div>

@@ -13,6 +13,6 @@ class Foto extends Model
     protected $primaryKey = 'FotoID';
 
     protected $fillable = [
-        'JudulFoto', 'DeskripsiFoto', 'TanggalUnggah', 'LokasiFile', 'AlbumID', 'UserID'
+       'picture', 'JudulFoto', 'DeskripsiFoto', 'TanggalUnggah', 'LokasiFile', 'AlbumID', 'UserID'
     ];
 }
