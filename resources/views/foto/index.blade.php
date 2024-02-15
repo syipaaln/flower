@@ -31,11 +31,11 @@
     <table class="table table-bordered">
         <tr>
             <th width="20px" class="text-center">No</th>
+            <th width="200px"class="text-center">Picture</th>
             <th width="100px"class="text-center">Judul Foto</th>
             <th width="280px"class="text-center">Deskripsi Foto</th>
             <th width="280px"class="text-center">Tanggal Unggah</th>
             <th width="200px"class="text-center">Lokasi File</th>
-            <th width="200px"class="text-center">Picture</th>
             <th width="100px"class="text-center">Album</th>
             <th width="100px"class="text-center">User</th>
             <th width="310px"class="text-center">Action</th>
